@@ -22,18 +22,30 @@ jobs:
                 with:
                     php-version: ${{ matrix.php-version }}
                     coverage: xdebug
+            -   name: Get Composer dependencies cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+                id: get-composer-dependencies-cache
+            -   name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.get-composer-dependencies-cache.outputs.dir }}
+                    key: php-${{ matrix.php-version }}_composer_dependencies-${{ matrix.dependencies }}_${{ hashFiles('**/composer.json') }}
+                    restore-keys: |
+                        php-${{ matrix.php-version }}_composer_dependencies-${{ matrix.dependencies }}
+                        php-${{ matrix.php-version }}_composer
+                        php-${{ matrix.php-version }}
             -   name: Install dependencies (lowest)
                 if: matrix.dependencies == 'lowest' && matrix.php-version != '8.0'
                 run: composer update --prefer-lowest --no-scripts
             -   name: Install dependencies (highest)
                 if: matrix.dependencies == 'highest' && matrix.php-version != '8.0'
                 run: composer update --prefer-stable --no-scripts
-#            -   name: Install dependencies (lowest - PHP 8.0)
-#                if: matrix.dependencies == 'lowest' && matrix.php-version == '8.0'
-#                run: composer update --prefer-lowest --no-scripts --ignore-platform-req=php
-#            -   name: Install dependencies (highest - PHP 8.0)
-#                if: matrix.dependencies == 'highest' && matrix.php-version == '8.0'
-#                run: composer update --prefer-stable --no-scripts --ignore-platform-req=php
+            #            -   name: Install dependencies (lowest - PHP 8.0)
+            #                if: matrix.dependencies == 'lowest' && matrix.php-version == '8.0'
+            #                run: composer update --prefer-lowest --no-scripts --ignore-platform-req=php
+            #            -   name: Install dependencies (highest - PHP 8.0)
+            #                if: matrix.dependencies == 'highest' && matrix.php-version == '8.0'
+            #                run: composer update --prefer-stable --no-scripts --ignore-platform-req=php
             -   name: Intialize Symfony
                 run: |
                     php bin/console cache:clear
@@ -79,19 +91,31 @@ jobs:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: ${{ matrix.php-version }}
+                    php-version: $  {{ matrix.php-version }}
+            -   name: Get Composer dependencies cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+                id: get-composer-dependencies-cache
+            -   name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.get-composer-dependencies-cache.outputs.dir }}
+                    key: php-${{ matrix.php-version }}_composer_dependencies-${{ matrix.dependencies }}_${{ hashFiles('**/composer.json') }}
+                    restore-keys: |
+                        php-${{ matrix.php-version }}_composer_dependencies-${{ matrix.dependencies }}
+                        php-${{ matrix.php-version }}_composer
+                        php-${{ matrix.php-version }}
             -   name: Install dependencies (lowest)
                 if: matrix.dependencies == 'lowest' && matrix.php-version != '8.0'
                 run: composer update --prefer-lowest --no-scripts
             -   name: Install dependencies (highest)
                 if: matrix.dependencies == 'highest' && matrix.php-version != '8.0'
                 run: composer update --prefer-stable --no-scripts
-#            -   name: Install dependencies (lowest - PHP 8.0)
-#                if: matrix.dependencies == 'lowest' && matrix.php-version == '8.0'
-#                run: composer update --prefer-lowest --no-scripts --ignore-platform-req=php
-#            -   name: Install dependencies (highest - PHP 8.0)
-#                if: matrix.dependencies == 'highest' && matrix.php-version == '8.0'
-#                run: composer update --prefer-stable --no-scripts --ignore-platform-req=php
+            #            -   name: Install dependencies (lowest - PHP 8.0)
+            #                if: matrix.dependencies == 'lowest' && matrix.php-version == '8.0'
+            #                run: composer update --prefer-lowest --no-scripts --ignore-platform-req=php
+            #            -   name: Install dependencies (highest - PHP 8.0)
+            #                if: matrix.dependencies == 'highest' && matrix.php-version == '8.0'
+            #                run: composer update --prefer-stable --no-scripts --ignore-platform-req=php
             -   name: Intialize Symfony
                 run: |
                     php bin/console cache:clear
@@ -139,18 +163,30 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php-version }}
+            -   name: Get Composer dependencies cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+                id: get-composer-dependencies-cache
+            -   name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.get-composer-dependencies-cache.outputs.dir }}
+                    key: php-${{ matrix.php-version }}_composer_dependencies-${{ matrix.dependencies }}_${{ hashFiles('**/composer.json') }}
+                    restore-keys: |
+                        php-${{ matrix.php-version }}_composer_dependencies-${{ matrix.dependencies }}
+                        php-${{ matrix.php-version }}_composer
+                        php-${{ matrix.php-version }}
             -   name: Install dependencies (lowest)
                 if: matrix.dependencies == 'lowest' && matrix.php-version != '8.0'
                 run: composer update --prefer-lowest --no-scripts
             -   name: Install dependencies (highest)
                 if: matrix.dependencies == 'highest' && matrix.php-version != '8.0'
                 run: composer update --prefer-stable --no-scripts
-#            -   name: Install dependencies (lowest - PHP 8.0)
-#                if: matrix.dependencies == 'lowest' && matrix.php-version == '8.0'
-#                run: composer update --prefer-lowest --no-scripts --ignore-platform-req=php
-#            -   name: Install dependencies (highest - PHP 8.0)
-#                if: matrix.dependencies == 'highest' && matrix.php-version == '8.0'
-#                run: composer update --prefer-stable --no-scripts --ignore-platform-req=php
+            #            -   name: Install dependencies (lowest - PHP 8.0)
+            #                if: matrix.dependencies == 'lowest' && matrix.php-version == '8.0'
+            #                run: composer update --prefer-lowest --no-scripts --ignore-platform-req=php
+            #            -   name: Install dependencies (highest - PHP 8.0)
+            #                if: matrix.dependencies == 'highest' && matrix.php-version == '8.0'
+            #                run: composer update --prefer-stable --no-scripts --ignore-platform-req=php
             -   name: Intialize Symfony
                 run: |
                     php bin/console cache:clear
@@ -178,6 +214,18 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: 7.4
+            -   name: Get Composer dependencies cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+                id: get-composer-dependencies-cache
+            -   name: Cache dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.get-composer-dependencies-cache.outputs.dir }}
+                    key: php-7.4_composer_dependencies-highest_${{ hashFiles('**/composer.json') }}
+                    restore-keys: |
+                        php-7.4_composer_dependencies-highest
+                        php-7.4_composer
+                        php-7.4
             -   name: Install dependencies
                 run: composer update
             -   name: Lint PHP

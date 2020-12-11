@@ -1,0 +1,3 @@
+App\Entity\ServiceGroup:
+    service-group_{1..3}:
+        name: <words(3, true)>

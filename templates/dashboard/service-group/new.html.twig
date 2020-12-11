@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Create a new service group</h1>
+    {{ include('dashboard/service-group/_form.html.twig', {buttonLabel: 'Create'}) }}
+    <a href="{{ path('service-group_index') }}">Cancel</a>
+{% endblock %}
+
+{% block title %}
+    Create a service group
+{% endblock %}
+

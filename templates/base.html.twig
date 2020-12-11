@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% for flashes in app.flashes %}
+    {% for flash in flashes %}
+        <div class="flash">{{ flash }}</div>
+    {% endfor %}
+{% endfor %}
+
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
 </html>

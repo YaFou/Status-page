@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Edit {{ group.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit {{ group.name }}</h1>
+
+    <a href="{{ path('service-group_index') }}">Show the list of service groups</a>
+
+    {{ include('dashboard/service-group/_form.html.twig') }}
+
+    <form method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="_token" value="{{ csrf_token('service-group_delete_'~group.id) }}">
+        <button type="submit">Delete</button>
+    </form>
+{% endblock %}
+

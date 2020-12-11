@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Service groups
+{% endblock %}
+
+{% block body %}
+    <h1>Service groups</h1>
+
+    <a href="{{ path('service-group_new') }}">Create a new service group</a>
+
+    {% if groups is not empty %}
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for group in groups %}
+                <tr>
+                    <td><a href="{{ path('service-group_edit', {id: group.id}) }}">{{ group.name }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No service group is created yet.</p>
+    {% endif %}
+{% endblock %}
+
+
